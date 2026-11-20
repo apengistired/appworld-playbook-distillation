@@ -1,0 +1,14 @@
+# 基于 StonyBrookNLP/appworld@42b5bcf；应用：cd third_party/appworld && git apply ../../patches/appworld_reasoning_content_none.patch
+diff --git a/experiments/code/simplified/react_code_agent.py b/experiments/code/simplified/react_code_agent.py
+index f812512..e1dc5c0 100644
+--- a/experiments/code/simplified/react_code_agent.py
++++ b/experiments/code/simplified/react_code_agent.py
+@@ -78,7 +78,7 @@ class SimplifiedReActCodeAgent(Agent):  # type: ignore[misc]
+         self.messages.append(
+             output
+         )  # NOTE: output should be appended as is, so Claude's thinking is passed back.
+-        reasoning_content = output.get("reasoning_content", "").strip()
++        reasoning_content = (output.get("reasoning_content") or "").strip()  # [spine-lifecycle patch] vLLM returns null when no reasoning
+         self.logger.show_message(
+             role="agent",
+             content=fixed_output_content,

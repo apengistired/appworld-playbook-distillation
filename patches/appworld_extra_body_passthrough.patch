@@ -1,0 +1,19 @@
+# 基于 StonyBrookNLP/appworld@42b5bcf；应用：cd third_party/appworld && git apply ../../patches/appworld_extra_body_passthrough.patch
+diff --git a/experiments/code/simplified/language_model.py b/experiments/code/simplified/language_model.py
+index c3ba3ab..816cc08 100644
+--- a/experiments/code/simplified/language_model.py
++++ b/experiments/code/simplified/language_model.py
+@@ -193,10 +193,13 @@ def non_cached_lm_call(
+         print("************************* LM_CALL_CACHE_MISS *************************")
+     if reasoning is not None and reasoning_effort is not None:
+         raise ValueError("Only one of reasoning or reasoning_effort should be passed in lm_call.")
++    extra_body = kwargs.pop("extra_body", None)  # [spine-lifecycle patch] pass-through, e.g. {"enable_thinking": False}
+     if kwargs:
+         raise ValueError(f"Unexpected kwargs in non_cached_lm_call: {kwargs}")
+     kwargs["model"] = model
+     kwargs["messages"] = messages
++    if extra_body is not None:
++        kwargs["extra_body"] = extra_body
+     if frequency_penalty is not None:
+         kwargs["frequency_penalty"] = frequency_penalty
+     if logprobs is not None:
