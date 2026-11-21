@@ -1,0 +1,151 @@
+{
+  "appworld_version": "0.2.0",
+  "vllm_version": "0.33.0",
+  "gpu": "NVIDIA A800 80GB",
+  "temperature": 0,
+  "seed": 100,
+  "max_tokens": 3000,
+  "max_steps": 50,
+  "max_model_len": 65536,
+  "runs_are_distinct_seeds": false,
+  "conditions": [
+    {
+      "condition": "base",
+      "model": "qwen3.5-9b",
+      "injection_mode": "none",
+      "guardrails": "none",
+      "auto_doc": "none",
+      "rsi_guards": "none",
+      "retry_mode": "none",
+      "workers_per_condition": 4,
+      "correct_by_run": [
+        35,
+        34,
+        26
+      ],
+      "tasks_per_run": 168,
+      "mean_tgc_percent": 18.849206349206348,
+      "sample_sd_percentage_points": 2.9362397989977667,
+      "correct_total": 95,
+      "task_runs": 504,
+      "pass_at_3": 47,
+      "all_3": 18,
+      "guardrail_totals": {},
+      "rsi_totals": {}
+    },
+    {
+      "condition": "control105",
+      "model": "ctrl105",
+      "injection_mode": "none",
+      "guardrails": "none",
+      "auto_doc": "none",
+      "rsi_guards": "none",
+      "retry_mode": "none",
+      "workers_per_condition": 4,
+      "correct_by_run": [
+        48,
+        55,
+        43
+      ],
+      "tasks_per_run": 168,
+      "mean_tgc_percent": 28.96825396825397,
+      "sample_sd_percentage_points": 3.587924865084352,
+      "correct_total": 146,
+      "task_runs": 504,
+      "pass_at_3": 72,
+      "all_3": 27,
+      "guardrail_totals": {},
+      "rsi_totals": {}
+    },
+    {
+      "condition": "base_static20",
+      "model": "qwen3.5-9b",
+      "injection_mode": "static",
+      "guardrails": "none",
+      "auto_doc": "none",
+      "rsi_guards": "none",
+      "retry_mode": "none",
+      "workers_per_condition": 4,
+      "correct_by_run": [
+        88,
+        88,
+        92
+      ],
+      "tasks_per_run": 168,
+      "mean_tgc_percent": 53.17460317460318,
+      "sample_sd_percentage_points": 1.3746434980705367,
+      "correct_total": 268,
+      "task_runs": 504,
+      "pass_at_3": 121,
+      "all_3": 54,
+      "guardrail_totals": {},
+      "rsi_totals": {}
+    },
+    {
+      "condition": "lora20",
+      "model": "ace20",
+      "injection_mode": "none",
+      "guardrails": "none",
+      "auto_doc": "none",
+      "rsi_guards": "none",
+      "retry_mode": "none",
+      "workers_per_condition": 4,
+      "correct_by_run": [
+        96,
+        89,
+        91
+      ],
+      "tasks_per_run": 168,
+      "mean_tgc_percent": 54.76190476190476,
+      "sample_sd_percentage_points": 2.1461614734904684,
+      "correct_total": 276,
+      "task_runs": 504,
+      "pass_at_3": 112,
+      "all_3": 69,
+      "guardrail_totals": {},
+      "rsi_totals": {}
+    },
+    {
+      "condition": "v5_lora_core",
+      "model": "ace20",
+      "injection_mode": "none",
+      "guardrails": "full",
+      "auto_doc": "none",
+      "rsi_guards": "v5",
+      "retry_mode": "none",
+      "workers_per_condition": 8,
+      "correct_by_run": [
+        91,
+        96,
+        100
+      ],
+      "tasks_per_run": 168,
+      "mean_tgc_percent": 56.94444444444444,
+      "sample_sd_percentage_points": 2.684077233823153,
+      "correct_total": 287,
+      "task_runs": 504,
+      "pass_at_3": 119,
+      "all_3": 71,
+      "guardrail_totals": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 69,
+        "readback_intercepts": 303,
+        "submit_gate_intercepts": 333,
+        "mutating_calls_seen": 1005,
+        "read_calls_after_last_write": 418
+      },
+      "rsi_totals": {
+        "pagination_limit_guard": 173,
+        "venmo_card_and_batch_idempotency": 41,
+        "search_precision_and_context": 37,
+        "file_batch_rename_guard": 9
+      }
+    }
+  ],
+  "notes": [
+    "Repeated executions share seed=100; batching and runtime can still vary.",
+    "The baseline matrix ran four workers per condition with conditions concurrent; RSI ran eight workers.",
+    "The RSI comparison adds full guardrails and RSI together, so it is not an isolated RSI ablation.",
+    "Per-task exports contain metrics only; raw conversations, credentials and evaluator contents stay in the local backup."
+  ]
+}

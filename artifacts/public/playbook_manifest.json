@@ -1,0 +1,41 @@
+{
+  "rules": 509,
+  "sections": {
+    "strategies_and_hard_rules": 242,
+    "useful_code_snippets_and_templates": 135,
+    "common_mistakes_to_avoid": 122,
+    "apis_to_use_for_specific_information": 10
+  },
+  "selection": "Sort by helpful - harmful descending, then helpful descending; retain top N.",
+  "provenance": "Historical train-split ACE output. Text files are unchanged originals. JSON reconstructs rendered IDs, sections, counts and content in creation-ID order, reproducing every published Top-N selection byte for byte; original per-rule origin fields were not recovered.",
+  "files": {
+    "playbook_all.json": {
+      "bytes": 319548,
+      "sha256": "d03846222eb6c40e976f5cec8776d21b346623f5082100d4615da28715ada476"
+    },
+    "playbook_all.txt": {
+      "bytes": 262632,
+      "sha256": "6af0a66b728ec0790ab0d6bc3e42e615ac676a4877542b38f6c9371cd572f0bf"
+    },
+    "playbook_top100.txt": {
+      "bytes": 44103,
+      "sha256": "4a44a29cd1e14110306576b9ae3f9d2d0c17135d055a16511725166502b35388"
+    },
+    "playbook_top20.txt": {
+      "bytes": 8199,
+      "sha256": "cccf302b59c24da282ebf365b53c504d6772c5f99251a949bf14b921473751dd"
+    },
+    "playbook_top200.txt": {
+      "bytes": 92983,
+      "sha256": "4a62bc811e6e0f00d1da58739822de609501abca8db541226b65eddf27a9b803"
+    },
+    "playbook_top5.txt": {
+      "bytes": 2129,
+      "sha256": "fe495c3f70d4df4b1b6878a19426eea27e826795d92bfce1d55c223e8651d127"
+    },
+    "playbook_top50.txt": {
+      "bytes": 21928,
+      "sha256": "1109883f6e8b9ed3fddbf83e1caf9afa413d960caa7bd88c71d4fa63284be90f"
+    }
+  }
+}

@@ -10,6 +10,40 @@ Train tasks + top-20 playbook → Teacher rollouts → Keep successes
 Successful trajectories → Remove playbook → LoRA SFT → Evaluate without playbook
 ```
 
+## Download the saved artifacts
+
+The [artifact release](https://github.com/apengistired/appworld-playbook-distillation/releases/tag/artifacts-2026-11-21) contains the trained LoRA adapters. Download an adapter to evaluate it directly without repeating playbook construction, teacher rollouts or training. Obtain the `Qwen/Qwen3.5-9B` base model separately.
+
+| Artifact | Contents |
+| --- | --- |
+| [Full playbook](artifacts/playbook_all.txt) / [JSON](artifacts/playbook_all.json) | All 509 generated rules, including IDs, sections and helpful/harmful counts. |
+| [Top-20 playbook](artifacts/playbook_top20.txt) | Exact 20-rule file used for the teacher and static-playbook experiments. |
+| [Top-5](artifacts/playbook_top5.txt), [Top-50](artifacts/playbook_top50.txt), [Top-100](artifacts/playbook_top100.txt), [Top-200](artifacts/playbook_top200.txt) | Additional historical selections. |
+| [LoRA20 for vLLM](https://github.com/apengistired/appworld-playbook-distillation/releases/download/artifacts-2026-11-21/lora_ace20_vllm.tar.gz) | Recommended serving copy for `Qwen3_5ForConditionalGeneration`; load as `ace20`. |
+| [Original LoRA20](https://github.com/apengistired/appworld-playbook-distillation/releases/download/artifacts-2026-11-21/lora_ace20.tar.gz) | Original causal-LM adapter tensor layout, trained on 105 playbook-guided successes across 64 train tasks. |
+| [Control105 for vLLM](https://github.com/apengistired/appworld-playbook-distillation/releases/download/artifacts-2026-11-21/lora_ctrl105_vllm.tar.gz) / [original](https://github.com/apengistired/appworld-playbook-distillation/releases/download/artifacts-2026-11-21/lora_ctrl105.tar.gz) | Control trained on 105 base-model successes across 35 train tasks; serve as `ctrl105`. |
+| [Checkpoint metadata](checkpoints/README.md) | Training configurations, logs, tensor hashes and archive checksums. |
+| [Recorded evaluation results](results/README.md) | All 2,520 task-runs in the five-condition, three-run `test_normal` matrix, plus the 57-task RSI dev run. |
+
+From the repository root, download and verify the serving adapter:
+
+```bash
+release=https://github.com/apengistired/appworld-playbook-distillation/releases/download/artifacts-2026-11-21
+asset=lora_ace20_vllm.tar.gz
+mkdir -p .tmp/downloads
+(
+  cd .tmp/downloads
+  curl -fL "$release/$asset" -o "$asset"
+  curl -fL "$release/$asset.sha256" -o "$asset.sha256"
+  sha256sum -c "$asset.sha256"  # On macOS: shasum -a 256 -c "$asset.sha256"
+  tar -xzf "$asset" -C ../..
+)
+```
+
+This creates `artifacts/lora_ace20_vllm/`. Start the server from pipeline step 1 with `--enable-lora --max-lora-rank 16 --lora-modules ace20=artifacts/lora_ace20_vllm`, then evaluate with `--model ace20 --injection-mode none`. For the control, choose `lora_ctrl105_vllm.tar.gz` and load it as `ctrl105`. Each archive contains adapter tensors, a portable configuration, the original training log and a short model card.
+
+The full text playbook is unchanged. Its JSON version reconstructs the rendered rule fields for use with `scripts/playbook_topn.py`; the original per-rule origin metadata was not recovered. [Playbook hashes and provenance](artifacts/public/playbook_manifest.json) describe the export.
+
 ## Results
 
 Historical results use AppWorld 0.2.0, Qwen3.5-9B in non-thinking mode, and the simplified ReAct harness. Task Goal Completion (TGC) is the percentage of tasks that pass the AppWorld unit tests. Each dev run covers 57 tasks. Each test_normal run covers 168 tasks.
@@ -36,6 +70,8 @@ Three-run evaluation on `test_normal` (168 tasks × 3 runs = 504 task-runs per c
 | `base_static20` (`qwen3.5-9b` + static Top-20) | 88 (52.38%) | 88 (52.38%) | 92 (54.76%) | 53.17% ± 1.37% | 268 | — |
 | `lora20` (`ace20` LoRA, no playbook) | 96 (57.14%) | 89 (52.98%) | 91 (54.17%) | 54.76% ± 2.15% | 276 | 112/168 (66.67%) |
 | **`v5_lora_core` (`ace20` + RSI-Harness v5)** | **91 (54.17%)** | **96 (57.14%)** | **100 (59.52%)** | **56.94% ± 2.68%** | **287** | **119/168 (70.83%)** |
+
+The three runs repeat `temperature=0, seed=100`; they are not a sweep over three different seeds. The baseline matrix used four workers per condition with conditions running concurrently; the RSI evaluation used eight workers. Runtime batching can vary. The LoRA-to-RSI comparison adds full guardrails and RSI together, so the +2.18 percentage-point average difference does not isolate the causal effect of RSI. See the [saved settings and task-level results](results/README.md).
 
 On the `dev` gate (57 tasks) and its 25-task baseline failure subset (`dev_fail25`, selected from baseline LoRA failures):
 
@@ -213,7 +249,7 @@ python scripts/run_lesson.py --cond v5_test_normal_lora_core \
 
 ## Reuse a saved run
 
-If you have the trained adapter, put its `adapter_config.json` and `adapter_model.safetensors` under `artifacts/lora_ace20/`. Follow step 5 to create the serving copy, load it with the matching Qwen3.5-9B base model, and run the LoRA evaluation directly. A saved adapter does not require the playbook or training trajectories at inference.
+Use the [download instructions](#download-the-saved-artifacts) for the published adapter. The `lora_ace20_vllm` archive is already remapped for serving. If using the original `lora_ace20` archive, follow step 5 to create the serving copy. Load it with the matching Qwen3.5-9B base model and evaluate directly. A saved adapter does not require the playbook or training trajectories at inference.
 
 If you have `artifacts/sft/ace20.jsonl`, start from step 4 to train a new adapter from those trajectories. A saved `artifacts/playbook_top20.txt` can be used directly for the playbook-guided evaluation in step 5.
 

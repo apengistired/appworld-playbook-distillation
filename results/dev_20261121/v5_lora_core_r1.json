@@ -1,0 +1,1365 @@
+{
+  "tasks": 57,
+  "correct": 39,
+  "tgc_percent": 68.42105263157895,
+  "run": "r1",
+  "model": "ace20",
+  "injection_mode": "none",
+  "guardrails": "full",
+  "auto_doc": "none",
+  "rsi_guards": "v5",
+  "retry_mode": "none",
+  "task_results": [
+    {
+      "task_id": "0d8a4ee_1",
+      "success": true,
+      "num_steps": 18,
+      "num_agent_steps": 19,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 1,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 14,
+          "rule": "search_precision_and_context",
+          "key": "fuzzy_users"
+        }
+      ]
+    },
+    {
+      "task_id": "0d8a4ee_2",
+      "success": true,
+      "num_steps": 23,
+      "num_agent_steps": 24,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 1,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 16,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.venmo.search_users"
+        },
+        {
+          "step": 16,
+          "rule": "search_precision_and_context",
+          "key": "fuzzy_users"
+        }
+      ]
+    },
+    {
+      "task_id": "0d8a4ee_3",
+      "success": true,
+      "num_steps": 16,
+      "num_agent_steps": 17,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 1,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 11,
+          "rule": "search_precision_and_context",
+          "key": "fuzzy_users"
+        }
+      ]
+    },
+    {
+      "task_id": "23cf851_1",
+      "success": true,
+      "num_steps": 8,
+      "num_agent_steps": 8,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "23cf851_2",
+      "success": true,
+      "num_steps": 7,
+      "num_agent_steps": 7,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "23cf851_3",
+      "success": true,
+      "num_steps": 9,
+      "num_agent_steps": 9,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "37a8675_1",
+      "success": true,
+      "num_steps": 27,
+      "num_agent_steps": 28,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 1,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 4,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 1,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 16,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.phone.search_contacts"
+        },
+        {
+          "step": 20,
+          "rule": "venmo_card_and_batch_idempotency",
+          "key": "balance_card"
+        }
+      ]
+    },
+    {
+      "task_id": "37a8675_2",
+      "success": true,
+      "num_steps": 24,
+      "num_agent_steps": 25,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 5,
+        "read_calls_after_last_write": 2
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 1,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 16,
+          "rule": "venmo_card_and_batch_idempotency",
+          "key": "balance_card"
+        }
+      ]
+    },
+    {
+      "task_id": "37a8675_3",
+      "success": true,
+      "num_steps": 18,
+      "num_agent_steps": 19,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 2,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 1,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 11,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.phone.search_contacts"
+        },
+        {
+          "step": 14,
+          "rule": "venmo_card_and_batch_idempotency",
+          "key": "balance_card"
+        }
+      ]
+    },
+    {
+      "task_id": "383cbac_1",
+      "success": false,
+      "num_steps": 6,
+      "num_agent_steps": 6,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "383cbac_2",
+      "success": false,
+      "num_steps": 19,
+      "num_agent_steps": 19,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 1,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "383cbac_3",
+      "success": true,
+      "num_steps": 18,
+      "num_agent_steps": 18,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "396c5a2_1",
+      "success": true,
+      "num_steps": 11,
+      "num_agent_steps": 12,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 4,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.spotify.search_artists"
+        }
+      ]
+    },
+    {
+      "task_id": "396c5a2_2",
+      "success": false,
+      "num_steps": 10,
+      "num_agent_steps": 11,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 4,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.spotify.search_artists"
+        }
+      ]
+    },
+    {
+      "task_id": "396c5a2_3",
+      "success": true,
+      "num_steps": 10,
+      "num_agent_steps": 11,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 3,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.spotify.search_artists"
+        }
+      ]
+    },
+    {
+      "task_id": "3ab5b8b_1",
+      "success": false,
+      "num_steps": 12,
+      "num_agent_steps": 13,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 1,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 3
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "3ab5b8b_2",
+      "success": false,
+      "num_steps": 8,
+      "num_agent_steps": 9,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 2
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "3ab5b8b_3",
+      "success": false,
+      "num_steps": 13,
+      "num_agent_steps": 14,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "4ec8de5_1",
+      "success": false,
+      "num_steps": 7,
+      "num_agent_steps": 7,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "4ec8de5_2",
+      "success": false,
+      "num_steps": 9,
+      "num_agent_steps": 9,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "4ec8de5_3",
+      "success": false,
+      "num_steps": 8,
+      "num_agent_steps": 8,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "4fab96f_1",
+      "success": false,
+      "num_steps": 17,
+      "num_agent_steps": 18,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "4fab96f_2",
+      "success": true,
+      "num_steps": 15,
+      "num_agent_steps": 16,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "4fab96f_3",
+      "success": false,
+      "num_steps": 21,
+      "num_agent_steps": 22,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "50e1ac9_1",
+      "success": true,
+      "num_steps": 12,
+      "num_agent_steps": 12,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "50e1ac9_2",
+      "success": true,
+      "num_steps": 13,
+      "num_agent_steps": 13,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 6,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.spotify.show_song_library"
+        }
+      ]
+    },
+    {
+      "task_id": "50e1ac9_3",
+      "success": true,
+      "num_steps": 8,
+      "num_agent_steps": 8,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "530b157_1",
+      "success": false,
+      "num_steps": 19,
+      "num_agent_steps": 20,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 6,
+        "read_calls_after_last_write": 2
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "530b157_2",
+      "success": true,
+      "num_steps": 20,
+      "num_agent_steps": 21,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 4,
+        "read_calls_after_last_write": 2
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 1,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 7,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.phone.search_contacts"
+        },
+        {
+          "step": 15,
+          "rule": "search_precision_and_context",
+          "key": "message_context"
+        }
+      ]
+    },
+    {
+      "task_id": "530b157_3",
+      "success": false,
+      "num_steps": 30,
+      "num_agent_steps": 31,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 2,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 2
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 3,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 1,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 10,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.phone.search_contacts"
+        },
+        {
+          "step": 19,
+          "rule": "search_precision_and_context",
+          "key": "message_context"
+        },
+        {
+          "step": 20,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.phone.search_text_messages"
+        },
+        {
+          "step": 22,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.venmo.search_users"
+        }
+      ]
+    },
+    {
+      "task_id": "57c3486_1",
+      "success": true,
+      "num_steps": 16,
+      "num_agent_steps": 17,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 4,
+        "read_calls_after_last_write": 3
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 1,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 12,
+          "rule": "venmo_card_and_batch_idempotency",
+          "key": "batch:apis.spotify.like_song"
+        },
+        {
+          "step": 14,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.spotify.show_liked_songs"
+        }
+      ]
+    },
+    {
+      "task_id": "57c3486_2",
+      "success": false,
+      "num_steps": 10,
+      "num_agent_steps": 11,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "57c3486_3",
+      "success": true,
+      "num_steps": 12,
+      "num_agent_steps": 13,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 4,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 1,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 9,
+          "rule": "venmo_card_and_batch_idempotency",
+          "key": "batch:apis.spotify.like_song"
+        }
+      ]
+    },
+    {
+      "task_id": "6171bbc_1",
+      "success": true,
+      "num_steps": 12,
+      "num_agent_steps": 13,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 3,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "6171bbc_2",
+      "success": true,
+      "num_steps": 16,
+      "num_agent_steps": 17,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 4,
+          "rule": "pagination_limit_guard",
+          "key": "playlist_rating"
+        }
+      ]
+    },
+    {
+      "task_id": "6171bbc_3",
+      "success": true,
+      "num_steps": 13,
+      "num_agent_steps": 14,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 4,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "68ee2c9_1",
+      "success": false,
+      "num_steps": 16,
+      "num_agent_steps": 17,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 3,
+        "read_calls_after_last_write": 2
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 1
+      },
+      "rsi_hits": [
+        {
+          "step": 12,
+          "rule": "file_batch_rename_guard",
+          "key": "rename_idempotency"
+        }
+      ]
+    },
+    {
+      "task_id": "68ee2c9_2",
+      "success": false,
+      "num_steps": 14,
+      "num_agent_steps": 14,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 2
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 1
+      },
+      "rsi_hits": [
+        {
+          "step": 11,
+          "rule": "file_batch_rename_guard",
+          "key": "rename_idempotency"
+        }
+      ]
+    },
+    {
+      "task_id": "68ee2c9_3",
+      "success": false,
+      "num_steps": 24,
+      "num_agent_steps": 25,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 18,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 1
+      },
+      "rsi_hits": [
+        {
+          "step": 7,
+          "rule": "file_batch_rename_guard",
+          "key": "rename_idempotency"
+        }
+      ]
+    },
+    {
+      "task_id": "6bdbc26_1",
+      "success": true,
+      "num_steps": 7,
+      "num_agent_steps": 7,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "6bdbc26_2",
+      "success": true,
+      "num_steps": 8,
+      "num_agent_steps": 8,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "6bdbc26_3",
+      "success": true,
+      "num_steps": 8,
+      "num_agent_steps": 8,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "6c2c621_1",
+      "success": true,
+      "num_steps": 15,
+      "num_agent_steps": 16,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 6,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "6c2c621_2",
+      "success": true,
+      "num_steps": 17,
+      "num_agent_steps": 18,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "6c2c621_3",
+      "success": true,
+      "num_steps": 15,
+      "num_agent_steps": 16,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 4,
+        "read_calls_after_last_write": 1
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "b119b1f_1",
+      "success": true,
+      "num_steps": 6,
+      "num_agent_steps": 6,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 1,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "b119b1f_2",
+      "success": true,
+      "num_steps": 8,
+      "num_agent_steps": 8,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "b119b1f_3",
+      "success": true,
+      "num_steps": 7,
+      "num_agent_steps": 7,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "d4e9306_1",
+      "success": false,
+      "num_steps": 18,
+      "num_agent_steps": 19,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 1,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 3
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "d4e9306_2",
+      "success": true,
+      "num_steps": 13,
+      "num_agent_steps": 14,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 3
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 1,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": [
+        {
+          "step": 3,
+          "rule": "pagination_limit_guard",
+          "key": "limit:apis.spotify.show_liked_tracks"
+        }
+      ]
+    },
+    {
+      "task_id": "d4e9306_3",
+      "success": true,
+      "num_steps": 10,
+      "num_agent_steps": 11,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "df61dc5_1",
+      "success": true,
+      "num_steps": 15,
+      "num_agent_steps": 16,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 2
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "df61dc5_2",
+      "success": true,
+      "num_steps": 23,
+      "num_agent_steps": 24,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 2,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "df61dc5_3",
+      "success": true,
+      "num_steps": 20,
+      "num_agent_steps": 21,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 1,
+        "submit_gate_intercepts": 1,
+        "mutating_calls_seen": 1,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "fac291d_1",
+      "success": true,
+      "num_steps": 11,
+      "num_agent_steps": 11,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "fac291d_2",
+      "success": true,
+      "num_steps": 10,
+      "num_agent_steps": 10,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    },
+    {
+      "task_id": "fac291d_3",
+      "success": true,
+      "num_steps": 11,
+      "num_agent_steps": 11,
+      "guardrails": {
+        "auto_doc_injections": 0,
+        "pagination_nudges": 0,
+        "readback_intercepts": 0,
+        "submit_gate_intercepts": 0,
+        "mutating_calls_seen": 0,
+        "read_calls_after_last_write": 0
+      },
+      "rsi_triggers": {
+        "pagination_limit_guard": 0,
+        "venmo_card_and_batch_idempotency": 0,
+        "search_precision_and_context": 0,
+        "file_batch_rename_guard": 0
+      },
+      "rsi_hits": []
+    }
+  ]
+}

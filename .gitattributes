@@ -1,0 +1,3 @@
+# Retain the exact historical playbook bytes and their original end-of-line spacing.
+artifacts/playbook_*.txt -text whitespace=-blank-at-eol
+*.csv text eol=lf

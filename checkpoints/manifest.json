@@ -1,0 +1,121 @@
+{
+  "release_tag": "artifacts-2026-11-21",
+  "base_model_included": false,
+  "adapters": [
+    {
+      "name": "lora_ace20",
+      "asset": "lora_ace20.tar.gz",
+      "url": "https://github.com/apengistired/appworld-playbook-distillation/releases/download/artifacts-2026-11-21/lora_ace20.tar.gz",
+      "bytes": 148322478,
+      "sha256": "3e61995768fc8e302c40d8cf83f877b7ed9822d167cba4a5e835d2cd86bea905",
+      "base_model": "Qwen/Qwen3.5-9B",
+      "layout": "causal_lm",
+      "weight_sha256": "c067200a7bf8f4f9dd6068fae1f11b82fa5d7856757f9cff96c40584f672411d",
+      "files": {
+        "adapter_model.safetensors": {
+          "bytes": 160486456,
+          "sha256": "c067200a7bf8f4f9dd6068fae1f11b82fa5d7856757f9cff96c40584f672411d"
+        },
+        "adapter_config.json": {
+          "bytes": 1237,
+          "sha256": "88c9240fea43bc3733f6087c2249a03b9e2276386b68ceecd84109a6d224f86b"
+        },
+        "train_log.json": {
+          "bytes": 1603,
+          "sha256": "6b639b9ae6b73436cb988181c1c6e07c6d600cdac34cdd59127f44c29ba4006a"
+        },
+        "README.md": {
+          "bytes": 404,
+          "sha256": "ba1d5baa855ac018eefaf65ecbe0fa82c0d8054f490d356b89f2476bf01f043e"
+        }
+      }
+    },
+    {
+      "name": "lora_ace20_vllm",
+      "asset": "lora_ace20_vllm.tar.gz",
+      "url": "https://github.com/apengistired/appworld-playbook-distillation/releases/download/artifacts-2026-11-21/lora_ace20_vllm.tar.gz",
+      "bytes": 148322466,
+      "sha256": "2793b4ba8235ab4bacc0a00c42d5836982d85728c76d002ab840535c3d4b537d",
+      "base_model": "Qwen/Qwen3.5-9B",
+      "layout": "vllm",
+      "weight_sha256": "6f8c71def9c05b3efa6f72931fe19e7769daae255c414a128230bb3b9357a3a2",
+      "files": {
+        "adapter_model.safetensors": {
+          "bytes": 160492456,
+          "sha256": "6f8c71def9c05b3efa6f72931fe19e7769daae255c414a128230bb3b9357a3a2"
+        },
+        "adapter_config.json": {
+          "bytes": 1237,
+          "sha256": "88c9240fea43bc3733f6087c2249a03b9e2276386b68ceecd84109a6d224f86b"
+        },
+        "train_log.json": {
+          "bytes": 1603,
+          "sha256": "6b639b9ae6b73436cb988181c1c6e07c6d600cdac34cdd59127f44c29ba4006a"
+        },
+        "README.md": {
+          "bytes": 443,
+          "sha256": "95827221347c06dca7c25f865550c90c504c6ad34bf805ef60c2920aa6bc0ad7"
+        }
+      }
+    },
+    {
+      "name": "lora_ctrl105",
+      "asset": "lora_ctrl105.tar.gz",
+      "url": "https://github.com/apengistired/appworld-playbook-distillation/releases/download/artifacts-2026-11-21/lora_ctrl105.tar.gz",
+      "bytes": 148326005,
+      "sha256": "9f9fc6cd16b19b476d3667922009161961b54f151a7b021d772b63dd717a19b4",
+      "base_model": "Qwen/Qwen3.5-9B",
+      "layout": "causal_lm",
+      "weight_sha256": "cc986bd8d359b842e2fe29c9978854040da0631d02581318d3c07e5038adfb30",
+      "files": {
+        "adapter_model.safetensors": {
+          "bytes": 160486456,
+          "sha256": "cc986bd8d359b842e2fe29c9978854040da0631d02581318d3c07e5038adfb30"
+        },
+        "adapter_config.json": {
+          "bytes": 1237,
+          "sha256": "26edda87fe98dd2a8586d0afccdb04929218ac48fa97c02142e7cff9fe2539f6"
+        },
+        "train_log.json": {
+          "bytes": 1636,
+          "sha256": "74639c87069b71a5701024cef8ceae3909e7da4b58936fff6ff5e3675ab9d226"
+        },
+        "README.md": {
+          "bytes": 405,
+          "sha256": "08875f133bec93ae4ad560d0d2bb500dfc908a267fc7cc5c5811e589f13e7046"
+        }
+      }
+    },
+    {
+      "name": "lora_ctrl105_vllm",
+      "asset": "lora_ctrl105_vllm.tar.gz",
+      "url": "https://github.com/apengistired/appworld-playbook-distillation/releases/download/artifacts-2026-11-21/lora_ctrl105_vllm.tar.gz",
+      "bytes": 148326033,
+      "sha256": "6a74e1de4f149bce1dfc9906d78d90a1da97cb41d6a4697cbbaa7f8898b81e24",
+      "base_model": "Qwen/Qwen3.5-9B",
+      "layout": "vllm",
+      "weight_sha256": "c95f0a208aa5c3206d3d3ab4f509f9ca4cafb8fe8f47f4b86e34dc85959a8f9e",
+      "files": {
+        "adapter_model.safetensors": {
+          "bytes": 160492456,
+          "sha256": "c95f0a208aa5c3206d3d3ab4f509f9ca4cafb8fe8f47f4b86e34dc85959a8f9e"
+        },
+        "adapter_config.json": {
+          "bytes": 1237,
+          "sha256": "26edda87fe98dd2a8586d0afccdb04929218ac48fa97c02142e7cff9fe2539f6"
+        },
+        "train_log.json": {
+          "bytes": 1636,
+          "sha256": "74639c87069b71a5701024cef8ceae3909e7da4b58936fff6ff5e3675ab9d226"
+        },
+        "README.md": {
+          "bytes": 444,
+          "sha256": "089edcb718fb8707c9030c6389c78640d6c0eb50caf852a1b22990687e076a7c"
+        }
+      }
+    }
+  ],
+  "playbook_manifest": "artifacts/public/playbook_manifest.json",
+  "results": "results/test_normal_20261121/summary.json",
+  "config_note": "Only base_model_name_or_path is normalized to Qwen/Qwen3.5-9B; adapter tensor bytes are unchanged."
+}
