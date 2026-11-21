@@ -1,21 +1,12 @@
-"""ACE 离线适应（Agentic Context Engineering，arXiv 2510.04618，ICLR 2026）在 Qwen3.5-9B + AppWorld 上的复现。
+"""Build a playbook with ACE-style offline adaptation on the AppWorld train split.
 
-与 ACE 对齐的部分（论文附录 Fig. 10/11 的提示词 + 官方代码 github.com/ace-agent/ace 的流程）：
-- Generator / Reflector / Curator 用同一个模型（非思考）
-- Reflector 输入：完整轨迹 + 标准答案代码 + 单元测试报告 + 当前 playbook（有标签设定，只在 train 上）；
-  输出 JSON：reasoning / error_identification / root_cause_analysis / correct_approach / key_insight / bullet_tags
-- 失败后的"多轮"= 带着反思重做同一任务（官方代码 _train_single_sample），成功或用完 --rounds 即停；第一次就成功时反思一次只为打标签
-- bullet_tags 更新 helpful / harmful 计数；Curator 每个样本后运行一次，只做 ADD
-- playbook 行格式：[id] helpful=X harmful=Y :: content；去重默认关闭（与官方代码默认一致）
+The Generator, Reflector, and Curator share a non-thinking model. The
+Generator uses AppWorld's simplified ReAct prompt with the playbook appended.
+The Reflector uses trajectories, reference code, and test reports to tag rules
+and guide retries. Each batch shares a frozen playbook while generating and
+retrying. The Curator then adds rules sequentially using the updated playbook.
 
-为吞吐所做的偏离（⚠️ 写进论文）：
-- Generator = 官方 simplified ReAct agent，把 playbook 追加在任务提示后（与我们的基线、关卡 1 一致），不用 ACE 自己的 Generator 提示；
-  Generator 不输出用到的 bullet id，由 Reflector 对整本 playbook 打标签
-- 按批并行：同一批 B 个任务共用一个 playbook 快照并行做"生成 + 反思重试"，批末再依次跑 Curator（官方代码 batch_size=1 严格串行）
-- section 名按论文 Curator 示例（strategies_and_hard_rules）推测 ⚠️
-
-用法：python scripts/ace_offline.py --run ace1 --epochs 2 --batch 30 --rounds 5
-输出：experiments/ace/<run>/playbook_e{ep}_b{b}.json/.txt、log.jsonl、playbook_final.txt
+Batch checkpoints and the final playbook are saved under experiments/ace/<run>.
 """
 from __future__ import annotations
 
@@ -190,7 +181,6 @@ class Playbook:
         return p
 
 
-# ---------------------------------------------------------------- LLM 辅助调用
 def chat(prompt: str, max_tokens: int = 3000) -> str:
     from openai import OpenAI
     c = OpenAI(
@@ -235,14 +225,12 @@ def render_traj(steps: list[dict], obs_chars: int = 2000, total: int = 40000, co
 
 
 def gt_code(task_id: str) -> str:
-    # 用 compiled_solution.py：只调用 agent 也能用的 apis.*（solution.py 用了 access_token_from、find_all_from_pages 等
-    # agent 环境里没有的内部辅助函数，冒烟测试中会让 Reflector 写出"不要用 show_account_passwords"之类的有害 bullet）
+    # The compiled solution uses the same API surface available to the agent.
     s = (ROOT / "data" / "tasks" / task_id / "ground_truth" / "compiled_solution.py").read_text()
     i = s.find("def solution(")
     return s[i:] if i >= 0 else s
 
 
-# ---------------------------------------------------------------- worker：一个任务的"生成 + 反思重试"
 _CFG: dict = {}
 
 
@@ -254,6 +242,7 @@ def _init(max_tokens: int) -> None:
 
 
 def _task(args: tuple) -> dict:
+    """Run one training task, reflecting after each attempt."""
     run, ep, task_id, playbook_text, rounds = args
     from appworld import AppWorld
     from appworld.evaluator import evaluate_task
@@ -301,11 +290,11 @@ def main() -> None:
     ap.add_argument("--tasks", default="train")
     ap.add_argument("--epochs", type=int, default=2)
     ap.add_argument("--batch", type=int, default=30)
-    ap.add_argument("--rounds", type=int, default=5, help="失败后带反思重做的最多次数（ACE AppWorld 设为 5）")
+    ap.add_argument("--rounds", type=int, default=5, help="Maximum reflection-guided retries after failures")
     ap.add_argument("--np", type=int, default=30)
     ap.add_argument("--max-tokens", type=int, default=3000)
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--resume", default="", help="从某个 playbook json 继续")
+    ap.add_argument("--resume", default="", help="Initialize from an existing playbook JSON file")
     args = ap.parse_args()
     setup_env()
     from appworld import load_task_ids
@@ -334,7 +323,7 @@ def main() -> None:
                 for r in recs:
                     pb.tag(r["tags"])
                 n_add = 0
-                for r in recs:  # Curator：每个样本一次，依次作用在最新 playbook 上（只做 ADD）
+                for r in recs:  # Each Curator call sees the playbook updated by earlier calls.
                     cur = parse_json(chat(CURATOR_PROMPT.format(
                         task=r["instruction"], playbook=pb.render(), attempt=r["last_attempt"],
                         reflection=r["last_reflection"], sections=", ".join(SECTIONS))))

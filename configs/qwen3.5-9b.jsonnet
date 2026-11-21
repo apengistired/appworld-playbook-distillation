@@ -9,12 +9,12 @@ local experiment_prompts_path = std.extVar("APPWORLD_EXPERIMENT_PROMPTS_PATH");
                 "client_name": "openai",
                 "api_type": "chat_completions",
                 "base_url": "http://127.0.0.1:8000/v1",
-                "api_key_env_name": "LLM_API_KEY",  // 本地 vLLM 不校验，填 EMPTY 即可
+                "api_key_env_name": "LLM_API_KEY",  // Use EMPTY for unauthenticated local vLLM.
                 "name": "qwen3.5-9b",  // vLLM --served-model-name
                 "temperature": 0.0,
                 "seed": 100,
                 "drop_reasoning_content": false,
-                "extra_body": {"chat_template_kwargs": {"enable_thinking": false}},  // vLLM 写法，同官方 qwen3-8b-without-reasoning 配置
+                "extra_body": {"chat_template_kwargs": {"enable_thinking": false}},  // vLLM chat-template option.
                 "cost_per_token": {"input_cache_hit": 0.0, "input_cache_miss": 0.0, "input_cache_write": 0.0, "output": 0.0},
                 "retry_after_n_seconds": 15,
                 "use_cache": false,

@@ -1,10 +1,8 @@
-"""关卡 1：在轨迹数据上训练 LoRA（只算 agent 输出部分的损失）。
+"""Train a Qwen LoRA adapter on AppWorld trajectories with assistant-only loss.
 
-序列 = 用官方聊天模板渲染的完整对话（与推理时最后一步看到的上下文逐字相同）+ 最终输出。
-损失只算每个 assistant 回合的正文和结束符；最后一回合模板里的空 <think></think> 不算。
-需先停掉 vLLM 释放显存。保存的 LoRA 可直接用 vLLM --lora-modules 挂载。
-
-用法：python scripts/train_lora.py --data artifacts/sft/ace20.jsonl --out artifacts/lora_ace20
+Render the complete conversation with the model's chat template. Supervise
+assistant response text and end tokens, excluding in-context demonstrations
+and empty reasoning markers. The saved adapter can be loaded by vLLM.
 """
 from __future__ import annotations
 
@@ -32,7 +30,7 @@ def encode(tok, messages: list[dict], max_len: int, n_demo: int = 0):
     text = tok.apply_chat_template(messages, tokenize=False, enable_thinking=False)
     enc = tok(text, return_offsets_mapping=True, add_special_tokens=False)
     ids, offs = enc["input_ids"], enc["offset_mapping"]
-    # 找出每个 assistant 回合正文（含结束符）的字符区间
+    # Find character spans of assistant responses, including their end tokens.
     spans, pos = [], 0
     while True:
         s = text.find(AST, pos)
@@ -45,7 +43,7 @@ def encode(tok, messages: list[dict], max_len: int, n_demo: int = 0):
         e = len(text) if e < 0 else e + len(END)
         spans.append((b, e))
         pos = e
-    spans = spans[n_demo:]  # 跳过官方提示词里的示范回合
+    spans = spans[n_demo:]  # Mask in-context demonstrations.
     labels = [-100] * len(ids)
     j = 0
     for i, (a, b) in enumerate(offs):
@@ -70,7 +68,7 @@ def main() -> None:
     ap.add_argument("--accum", type=int, default=4)
     ap.add_argument("--max-len", type=int, default=24576)
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--init", default="", help="从已有 LoRA 目录继续训练（不填 = 新建）")
+    ap.add_argument("--init", default="", help="Start from an existing LoRA adapter directory")
     args = ap.parse_args()
     if not torch.cuda.is_available():
         ap.error("LoRA training requires a CUDA GPU")
@@ -96,7 +94,7 @@ def main() -> None:
     model = AutoModelForCausalLM.from_pretrained(args.model, dtype=torch.bfloat16, device_map="cuda")
     model.gradient_checkpointing_enable()
     model.config.use_cache = False
-    if args.init:  # 增量蒸馏：在已有 LoRA 上继续训（框架 v1 的"加强已有"）
+    if args.init:
         from peft import PeftModel
         pm = PeftModel.from_pretrained(model, args.init, is_trainable=True)
     else:
@@ -106,9 +104,9 @@ def main() -> None:
     pm.train()
     params = [p for p in pm.parameters() if p.requires_grad]
     opt = torch.optim.AdamW(params, lr=args.lr, weight_decay=0.0)
-    total = args.epochs * math.ceil(len(data) / args.accum)  # 每轮末尾不满 accum 的也算一步
+    total = args.epochs * math.ceil(len(data) / args.accum)  # Count each partial accumulation at epoch end.
     warm = max(1, total // 10)
-    sched = torch.optim.lr_scheduler.LambdaLR(  # 超过总步数后学习率保持 0，不再回升
+    sched = torch.optim.lr_scheduler.LambdaLR(  # Clamp the cosine schedule at zero after the final step.
         opt, lambda s: (s + 1) / warm if s < warm else
         0.5 * (1 + math.cos(math.pi * min(1.0, (s - warm) / max(1, total - warm)))))
     rng = random.Random(args.seed)
@@ -119,8 +117,8 @@ def main() -> None:
         acc_loss, acc_n = 0.0, 0
         for k, i in enumerate(order):
             ids, lab = data[i]
-            # 只在算损失的位置计算 logits：完整 logits（1.5 万 token × 24.8 万词表 fp32 ≈ 14GB）会显存溢出
-            pos = (lab[1:] != -100).nonzero().flatten()  # 位置 p 的 logits 预测 token p+1
+            # Materialize logits only where the next token contributes to the loss.
+            pos = (lab[1:] != -100).nonzero().flatten()
             out = pm(input_ids=ids[None].cuda(), logits_to_keep=pos.cuda())
             loss = torch.nn.functional.cross_entropy(out.logits[0].float(), ids[pos + 1].cuda())
             del out

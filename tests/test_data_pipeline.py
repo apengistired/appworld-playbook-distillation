@@ -3,16 +3,42 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
+from unittest.mock import patch
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
+import run_lesson
 from build_sft import collect_examples
 from run_lesson import PLAYBOOK_HEADER
 
 
 class DataPipelineTests(unittest.TestCase):
+    def test_rollout_limit_applies_to_each_run(self):
+        argv = [
+            "run_lesson.py", "--cond", "smoke", "--tasks", "dev", "--runs", "r1,r2", "--limit", "1",
+        ]
+        with (
+            patch.object(sys, "argv", argv),
+            patch.object(run_lesson, "setup_env"),
+            patch.object(run_lesson, "resolve_tasks", return_value=["first", "second"]),
+            patch.object(run_lesson.mp, "get_context") as get_context,
+            redirect_stdout(StringIO()),
+        ):
+            pool_factory = get_context.return_value.Pool
+            pool = pool_factory.return_value.__enter__.return_value
+            pool.imap_unordered.return_value = [{"success": True}, {"success": False}]
+            run_lesson.main()
+
+        self.assertEqual(pool_factory.call_args.args[0], 2)
+        pool.imap_unordered.assert_called_once_with(run_lesson._job, [
+            ("smoke", "r1", "first", ""),
+            ("smoke", "r2", "first", ""),
+        ])
+
     def test_rank_playbook_by_net_helpfulness(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -65,6 +91,17 @@ class DataPipelineTests(unittest.TestCase):
             self.assertEqual(rows[0]["n_demo_assistant"], 1)
             self.assertEqual(rows[0]["messages"][1]["content"], "Task")
             self.assertEqual(rows[0]["messages"][-1]["content"], "Agent completion")
+            # Selecting the clean retry must also select its trajectory during SFT export.
+            record_path = records / "train_success.json"
+            record = json.loads(record_path.read_text())
+            record["selected_exp"] = f"spine/gate1/{label}_retry"
+            record_path.write_text(json.dumps(record))
+            retry_log = root / "experiments/outputs" / record["selected_exp"] / "tasks/train_success/logs/lm_calls.jsonl"
+            retry_log.parent.mkdir(parents=True)
+            last["output"]["choices"][0]["message"]["content"] = "Selected retry completion"
+            retry_log.write_text(json.dumps(first) + "\n" + json.dumps(last) + "\n")
+            rows = collect_examples(root, "teacher", ["r1"], {"train_success"}, "Example rule", PLAYBOOK_HEADER)
+            self.assertEqual(rows[0]["messages"][-1]["content"], "Selected retry completion")
 
 
 if __name__ == "__main__":

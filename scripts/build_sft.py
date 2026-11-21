@@ -11,6 +11,7 @@ from run_lesson import HEADERS, ROOT, setup_env
 
 
 def load_trajectory(path: Path, playbook: str, header: str) -> dict:
+    """Recover the final chat history and remove the teacher's static playbook."""
     with path.open() as log:
         calls = (line for line in log if line.strip())
         first = last = next(calls, None)
@@ -42,18 +43,22 @@ def load_trajectory(path: Path, playbook: str, header: str) -> dict:
 
 def collect_examples(root: Path, condition: str, runs: list[str], train_ids: set[str],
                      playbook: str, header: str) -> list[dict]:
+    """Collect successful training trajectories from the requested rollout labels."""
     rows = []
     for run in runs:
         label = f"{condition}_{run}"
         records = root / "experiments" / "gate1" / label
         if not records.is_dir():
             raise ValueError(f"No result directory for {label}")
-        outputs = root / "experiments" / "outputs" / "spine" / "gate1" / label
         for file in sorted(records.glob("*.json")):
             record = json.loads(file.read_text())
             task_id = record["task_id"]
             if not record["success"] or task_id not in train_ids:
                 continue
+            experiment = record.get("selected_exp", f"spine/gate1/{label}")
+            if experiment not in (f"spine/gate1/{label}", f"spine/gate1/{label}_retry"):
+                raise ValueError(f"Unexpected selected experiment in {file}")
+            outputs = root / "experiments" / "outputs" / experiment
             log = outputs / "tasks" / task_id / "logs" / "lm_calls.jsonl"
             rows.append({"src": label, "task_id": task_id, **load_trajectory(log, playbook, header)})
     return rows
