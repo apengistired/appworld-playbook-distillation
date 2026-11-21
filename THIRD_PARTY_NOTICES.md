@@ -1,5 +1,7 @@
 # Third-party notices
 
+This repository's code is distributed under the [Apache License 2.0](LICENSE).
+
 The [AppWorld project](https://github.com/StonyBrookNLP/appworld) provides the benchmark, evaluator and ReAct agent. The two AppWorld compatibility patches and the adapted ReAct configuration are based on AppWorld revision `42b5bcf3cd334fee33f0c37c02070a9f5807add5`, under the [Apache License 2.0](patches/LICENSE). The patches modify chat option forwarding and handling of a nullable reasoning field. The configuration selects the local Qwen endpoint and generation settings.
 
 Obtain AppWorld data and encrypted benchmark components through upstream's distribution. See [AppWorld's license terms](https://github.com/StonyBrookNLP/appworld/blob/42b5bcf3cd334fee33f0c37c02070a9f5807add5/README.md#lock_with_ink_pen-license).

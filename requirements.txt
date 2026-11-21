@@ -1,0 +1,9 @@
+# Install CUDA-compatible PyTorch and select Qwen3.5-compatible GPU packages.
+# The README covers AppWorld, its pinned runtime dependencies, and vLLM.
+torch
+transformers
+peft
+safetensors
+accelerate
+openai>=1.99.5,<1.99.9
+jsonnet>=0.21.0
